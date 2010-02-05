@@ -107,6 +107,8 @@ creations with the community.  Well documented and tested extensios will be adde
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
-== Copyright
+=License
 
-Copyright (c) 2010 Powcloud Inc. See LICENSE for details.
+Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+
+COPYRIGHT 2010 POWCLOUD INC.
