@@ -1,10 +1,8 @@
 = firewall-agent
 
-Firewall Agent
-
 Firewall Agent is a utility to simplify firewall configuration for clouds and clusters, especially when hosted with 3rd party VPS services.
 
-Key Features
+= Key Features
  - Human readable/writable policy files
  - Dynamic policy updates
  - IPTables compatible
@@ -16,22 +14,22 @@ allows you to go beyond static files to update your policy file as needed, based
 criteria.  Examples of several of the applications of this feature can be seen below in the policy examples.
 
 
-Getting Started
+= Getting Started
  sudo gem install powcloud-firewall-agent
  sudo firewall-agent bootstrap
  sudo firewall-agent
 
-To Run as a Service (TBD)
+== To Run as a Service (TBD)
  service start firewall-agent
 
-Writing a Policy File
+== Writing a Policy File
 
 Policy files are simple ruby files, and as such, can have any ruby syntax necessary.  Policy files are required to
 have a 'policy' block.  To get started create a policy file using one of the templates below, then cusotmize it to your needs.
 
 The command 'firewall-agent bootstrap' creates a policy.rb file in the /etc/firewall-agent directory using the same 'standard' policy shown in this README.
 
-Basic Policy
+=== Basic Policy
 
   policy :standard_policy do
     deny_all             # deny all connections from all hosts
@@ -41,7 +39,7 @@ Basic Policy
     allow_ssh            # allow SSH connections
   end
 
-Dynamic Policy
+=== Dynamic Policy
 
   policy :dynamic_policy do
     deny_all
@@ -58,7 +56,7 @@ Dynamic Policy
   end
 
 
-Super Advanced Policy
+=== Super Advanced Policy
 
   require 'resolve'
   policy :advanced_policy do
@@ -89,7 +87,7 @@ Super Advanced Policy
   end
 
 
-Extending Firewall Agent
+= Extending Firewall Agent
 
 Firewall-agent includes a simple Slicehost extension which uses the Slicehost API to get a list of all slices in your account, then updates the
 policy to allow access from any of these nodes - for all ports - on the firewall-agent host.  You can use this as a model to create similar extensions
