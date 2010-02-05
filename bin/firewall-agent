@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+begin
+  require 'rubygems'
+rescue LoadError
+end
+
+require File.dirname(__FILE__) + '/../lib/firewall_agent'
+
+Log4r::Logger.root.level = Log4r::WARN
+
+
+if ARGV.length > 0
+  if ARGV[0] == 'bootstrap'
+    require 'fileutils'
+    FileUtils.mkdir_p('/etc/firewall-agent')
+    FileUtils.cp(File.join(File.dirname(__FILE__), '..', 'examples', 'standard_policy.rb'), FirewallAgent::DEFAULT_POLICY_FILE)
+    puts "Created #{FirewallAgent::DEFAULT_POLICY_FILE}"
+  else
+    FirewallAgent.start ARGV[0]
+  end
+else
+  FirewallAgent.start
+end
+
