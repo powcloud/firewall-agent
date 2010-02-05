@@ -3,10 +3,10 @@
 Firewall Agent is a utility to simplify firewall configuration for clouds and clusters, especially when hosted with 3rd party VPS services.
 
 = Key Features
- - Human readable/writable policy files
- - Dynamic policy updates
- - IPTables compatible
- - Written in Ruby
+- Human readable/writable policy files
+- Dynamic policy updates
+- IPTables compatible
+- Written in Ruby
 
 What Are Dynamic Policy Updates?
 IPTables uses a static config file to specify the allowed ports, hosts and connections allowed at any given time. Firewall-agent with Dynamic Policy Updates
