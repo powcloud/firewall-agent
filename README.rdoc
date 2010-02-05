@@ -17,7 +17,7 @@ criteria.  Examples of several of the applications of this feature can be seen b
 
 
 Getting Started
- sudo gem install firewall-agent
+ sudo gem install powcloud-firewall-agent
  sudo firewall-agent bootstrap
  sudo firewall-agent
 
@@ -33,63 +33,64 @@ The command 'firewall-agent bootstrap' creates a policy.rb file in the /etc/fire
 
 Basic Policy
 
-policy :standard_policy do
-  deny_all             # deny all connections from all hosts
-  allow_listen 'http'  # let HTTP connections in
-  allow_established    # allow all established TCP connections
-  allow_ping           # let any host ping this server
-  allow_ssh            # allow SSH connections
-end
+  policy :standard_policy do
+    deny_all             # deny all connections from all hosts
+    allow_listen 'http'  # let HTTP connections in
+    allow_established    # allow all established TCP connections
+    allow_ping           # let any host ping this server
+    allow_ssh            # allow SSH connections
+  end
 
 Dynamic Policy
 
-policy :dynamic_policy do
-  deny_all
-  allow_listen 'http', 'https'  # list multiple services or ports as needed
+  policy :dynamic_policy do
+    deny_all
+    allow_listen 'http', 'https'  # list multiple services or ports as needed
 
-  # Firewall-agent will whitelist all slices in your account, enabling a Virtual Private Network for your slices
-  update :each => 5.minutes do
-    allow_ips slicehost_get_ips('https://8fff02f2853@api.slicehost.com/')
+    # Firewall-agent will whitelist all slices in your account, enabling a Virtual Private Network for your slices
+    update :each => 5.minutes do
+      allow_ips slicehost_get_ips('https://8fff02f2853@api.slicehost.com/')
+    end
+
+    allow_established
+    allow_ping
+    allow_ssh
   end
-
-  allow_established
-  allow_ping
-  allow_ssh
-end
 
 
 Super Advanced Policy
 
-require 'resolve'
-policy :advanced_policy do
-  deny_all
-  allow_listen 'http', 'https'
+  require 'resolve'
+  policy :advanced_policy do
+    deny_all
+    allow_listen 'http', 'https'
 
-  update :each => 5.minutes do
-    allow_ips slicehost_get_ips('https://8fff02f2853@api.slicehost.com/')
+    update :each => 5.minutes do
+      allow_ips slicehost_get_ips('https://8fff02f2853@api.slicehost.com/')
+    end
+
+    # 3 different schedules for different types of policy elememnts
+    # this block will enable you to always access all services on
+    # this host - even when your IP changes, via a Dynamic DNS service
+    update :each => 10.minutes do
+      allow_ips Resolv.getaddress('your-desktop.dyndns.org')
+      allow_ips Resolv.getaddress('your-laptop.dyndns.org')
+    end
+
+    # disable printing using CUPS/IPP outside of business hours
+    update :each => 1.minutes do
+      now = Time.now
+      allow_listen 631 unless now.hour < 8 || now.hour > 18
+    end
+
+    allow_established
+    allow_ping
+    allow_ssh
   end
-
-  # 3 different schedules for different types of policy elememnts
-  # this block will enable you to always access all services on
-  # this host - even when your IP changes, via a Dynamic DNS service
-  update :each => 10.minutes do
-    allow_ips Resolv.getaddress('your-desktop.dyndns.org')
-    allow_ips Resolv.getaddress('your-laptop.dyndns.org')
-  end
-
-  # disable printing using CUPS/IPP outside of business hours
-  update :each => 1.minutes do
-    now = Time.now
-    allow_listen 631 unless now.hour < 8 || now.hour > 18
-  end
-
-  allow_established
-  allow_ping
-  allow_ssh
-end
 
 
 Extending Firewall Agent
+
 Firewall-agent includes a simple Slicehost extension which uses the Slicehost API to get a list of all slices in your account, then updates the
 policy to allow access from any of these nodes - for all ports - on the firewall-agent host.  You can use this as a model to create similar extensions
 for other VPS provides such as Linode, etc.

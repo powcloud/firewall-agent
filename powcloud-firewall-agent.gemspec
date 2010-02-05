@@ -4,11 +4,11 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{firewall-agent}
-  s.version = "0.1.0"
+  s.name = %q{powcloud-firewall-agent}
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Darren Rush", "Max M. Petrov"]
+  s.authors = ["Darren Rush", "Max M. Petrov", "Jordan Mendler"]
   s.date = %q{2010-02-05}
   s.default_executable = %q{firewall-agent}
   s.description = %q{Firewall Agent is a utility to simplify firewall configuration for clouds and clusters, especially when hosted with 3rd party VPS services.}
@@ -24,11 +24,11 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "bin/firewall-agent",
-     "firewall-agent.gemspec",
      "lib/firewall_agent.rb",
      "lib/iptables_generator.rb",
      "lib/policy.rb",
      "lib/slicehost_support.rb",
+     "powcloud-firewall-agent.gemspec",
      "test/helper.rb",
      "test/test_firewall-agent.rb"
   ]

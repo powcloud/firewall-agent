@@ -4,12 +4,12 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "firewall-agent"
+    gem.name = "powcloud-firewall-agent"
     gem.summary = %Q{Firewall Agent is a utility to simplify firewall configuration}
     gem.description = %Q{Firewall Agent is a utility to simplify firewall configuration for clouds and clusters, especially when hosted with 3rd party VPS services.}
     gem.email = "maxmpz@gmail.com"
     gem.homepage = "http://github.com/powcloud/firewall-agent"
-    gem.authors = ["Darren Rush", "Max M. Petrov"]
+    gem.authors = ["Darren Rush", "Max M. Petrov", "Jordan Mendler"]
     gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
     gem.files =  FileList["[A-Z_.]*", "{bin,lib,test}/**/*", 'lib/jeweler/templates/.gitignore']
 
@@ -52,7 +52,7 @@ Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "firewall-agent #{version}"
+  rdoc.title = "powcloud-firewall-agent #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
