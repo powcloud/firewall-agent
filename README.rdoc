@@ -1,6 +1,6 @@
 = firewall-agent
 
-Firewall Agent is a utility to simplify firewall configuration for clouds and clusters, especially when hosted with 3rd party VPS services.
+Firewall Agent is a utility to simplify firewall configuration for clouds and clusters, especially when hosted by 3rd party VPS services.
 
 = Key Features
 - Human readable/writable policy files
@@ -9,9 +9,9 @@ Firewall Agent is a utility to simplify firewall configuration for clouds and cl
 - Written in Ruby
 
 What Are Dynamic Policy Updates?
-IPTables uses a static config file to specify the allowed ports, hosts and connections allowed at any given time. Firewall-agent with Dynamic Policy Updates
-allows you to go beyond static files to update your policy file as needed, based on changing network conditions, dynmic host or service lists, or time-based
-criteria.  Examples of several of the applications of this feature can be seen below in the policy examples.
+IPTables uses a static configuration file to specify the ports, hosts and connections allowed through the firewall. Firewall-agent with Dynamic Policy Updates
+allows you to go beyond static files to update your policy file as needed, based on changing network conditions, dynamic host or service lists, or time-based
+criteria.  The policy examples below explain some of these applications in more detail.
 
 
 = Getting Started
@@ -19,15 +19,16 @@ criteria.  Examples of several of the applications of this feature can be seen b
  sudo firewall-agent bootstrap
  sudo firewall-agent
 
+The command 'firewall-agent bootstrap' creates a policy.rb file in the /etc/firewall-agent directory using the same 'standard' policy shown in this README. You can edit this file to your needs or create custom policy files.  To pass a custom policy to the firewall-agent at startup, use this syntax:
+ sudo firewall-agent <path-to-my-policy-file.rb>
+
 == To Run as a Service (TBD)
  service start firewall-agent
 
 == Writing a Policy File
 
-Policy files are simple ruby files, and as such, can have any ruby syntax necessary.  Policy files are required to
-have a 'policy' block.  To get started create a policy file using one of the templates below, then cusotmize it to your needs.
-
-The command 'firewall-agent bootstrap' creates a policy.rb file in the /etc/firewall-agent directory using the same 'standard' policy shown in this README.
+Policy files are simple ruby files, and as such, can utilize the complete ruby syntax, requires, etc.  Policy files are required to
+have a 'policy' block.  To get started create a policy file using one of the templates below, then customize it to your needs.
 
 === Basic Policy
 
@@ -67,7 +68,7 @@ The command 'firewall-agent bootstrap' creates a policy.rb file in the /etc/fire
       allow_ips slicehost_get_ips('https://8fff02f2853@api.slicehost.com/')
     end
 
-    # 3 different schedules for different types of policy elememnts
+    # 3 different schedules for different types of policy elements
     # this block will enable you to always access all services on
     # this host - even when your IP changes, via a Dynamic DNS service
     update :each => 10.minutes do
@@ -89,12 +90,12 @@ The command 'firewall-agent bootstrap' creates a policy.rb file in the /etc/fire
 
 = Extending Firewall Agent
 
-Firewall-agent includes a simple Slicehost extension which uses the Slicehost API to get a list of all slices in your account, then updates the
+Firewall-agent includes a sample extension for Slicehost VPS users.  The extension uses the Slicehost API to get a list of all slices in your account, then updates the
 policy to allow access from any of these nodes - for all ports - on the firewall-agent host.  You can use this as a model to create similar extensions
-for other VPS provides such as Linode, etc.
+for other VPS providers such as Linode, etc.
 
-In addition, we believe there are lots of opportunities for extensions to integrate dynamic whitelist and blacklist services.  Please share your
-creations with the community.  Well documented and tested extensios will be added to the firewall-agent - please contact us on GitHub.
+In addition, we believe there are many opportunities for extensions to integrate dynamic whitelist and blacklist services.  Please share your
+creations with the community.  Well documented and tested extensions will be added to the firewall-agent core - please contact us on GitHub.
 
 
 == Note on Patches/Pull Requests
