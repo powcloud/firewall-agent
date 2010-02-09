@@ -1,6 +1,6 @@
 = firewall-agent
 
-Firewall Agent is a utility to simplify firewall configuration for clouds and clusters, especially when hosted by 3rd party VPS services.
+Firewall Agent is a Ruby DSL for IPTables, designed to simplify firewall configuration for clouds and clusters, especially when hosted by 3rd party VPS services.
 
 = Key Features
 - Human readable/writable policy files
